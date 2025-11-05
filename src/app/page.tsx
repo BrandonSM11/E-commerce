@@ -1,132 +1,101 @@
-"use client";
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { Button } from '@/components/button';
+import { vehicles } from '@/constant/vehicles';
+import Navbar from '@/components/navbar';
+import VehicleCard from '@/components/vehiclecard';
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/button";
-
-export default function AuthPage() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-  const now: Date = new Date();
-console.log(now.toUTCString());
-
-
-    try {
-      if (isLogin) {
-        const result = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
-
-        if (result?.error) throw new Error(result.error);
-        router.push("/dashboard");
-      } else {
-        const res = await fetch("/api/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || "Registration failed");
-        }
-
-        setIsLogin(true);
-      }
-    } catch (error: any) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+const Home = () => {
+  const featuredVehicles = vehicles.slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 text-black">
-      <div className="w-full max-w-md space-y-8">
-        <div className="space-y-2 text-center">
-          <Button
-            variant="ghost"
-            onClick={() => router.push("/")}
-            className="mb-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Button>
-
-          <h1 className="text-4xl font-bold tracking-tight">
-            {isLogin ? "Welcome Back" : "Create Account"}
-          </h1>
-          <p className="text-gray-500">
-            {isLogin
-              ? "Sign in to your account to continue"
-              : "Start your luxury automotive journey"}
-          </p>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&auto=format&fit=crop"
+            alt="Luxury Car"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
         </div>
-
-        <form onSubmit={handleAuth} className="space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none 
-                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none 
-                           focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-              />
-            </div>
+        
+        <div className="relative z-10 text-center space-y-8 px-4 animate-fade-in">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter">
+            Drive Your
+            <br />
+            <span className="text-muted-foreground">Dreams</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Experience the pinnacle of automotive excellence. Curated collection of the worlds most prestigious vehicles.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Link href="/shop">
+              <Button size="lg" className="group">
+                Explore Collection
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
+        </div>
+      </section>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
-          </Button>
-
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
-            >
-              {isLogin
-                ? "Don't have an account? Sign up"
-                : "Already have an account? Sign in"}
-            </button>
+      {/* Featured Vehicles */}
+      <section className="py-24 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium">
+              Handpicked Selection
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold">Featured Vehicles</h2>
           </div>
-        </form>
-      </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredVehicles.map((vehicle) => (
+              <VehicleCard key={vehicle.idVehicle} vehicle={vehicle} />
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link href="/shop">
+              <Button variant="outline" size="lg">
+                View All Vehicles
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Brand Categories */}
+      <section className="py-24 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium">
+              Premium Brands
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold">Explore by Manufacturer</h2>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {['Tesla', 'Porsche', 'Mercedes-Benz', 'Ferrari', 'Lamborghini', 'McLaren', 'Aston Martin', 'Bentley'].map((brand) => (
+              <Link
+                key={brand}
+                href={`/shop?brand=${brand}`}
+                className="aspect-square bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:shadow-lg transition-all duration-300 group"
+              >
+                <span className="text-lg font-semibold group-hover:scale-110 transition-transform">
+                  {brand}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
-}
+};
+
+export default Home;
