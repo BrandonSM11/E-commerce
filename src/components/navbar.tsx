@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ShoppingCart, User, LogOut } from "lucide-react";
-import { Button } from "@/components/button";
+import { Button } from "@/components/button/button";
 
 export default function Navbar() {
   const router = useRouter();
@@ -27,17 +27,16 @@ export default function Navbar() {
           LUXE<span className="text-muted-foreground">AUTO</span>
         </Link>
 
-        {/* LINKS */}
         <div className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            className="text-lg font-medium hover:text-primary transition-colors"
           >
             Home
           </Link>
           <Link
-            href="/shop"
-            className="text-sm font-medium hover:text-primary transition-colors"
+            href="/dashboard"
+            className="text-lg font-medium hover:text-primary transition-colors"
           >
             Shop
           </Link>
@@ -46,24 +45,23 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
 
           <Link href="/cart" className="relative">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="default" size="icon">
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span >
                   {totalItems}
                 </span>
               )}
             </Button>
           </Link>
 
-          {/* Usuario */}
           {user ? (
-            <Button variant="ghost" size="icon" onClick={handleSignOut}>
-              <LogOut className="h-5 w-5" />
+            <Button variant="default" size="icon" onClick={handleSignOut}>
+              <LogOut />
             </Button>
           ) : (
-            <Link href="/auth">
-              <Button variant="ghost" size="icon">
+            <Link href="/login">
+              <Button variant="default" size="icon">
                 <User className="h-5 w-5" />
               </Button>
             </Link>

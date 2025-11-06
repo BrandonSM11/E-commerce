@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { Button } from '@/components/button';
+import { Button } from '@/components/button/button';
 import { vehicles } from '@/constant/vehicles';
 import Navbar from '@/components/navbar';
 import VehicleCard from '@/components/vehiclecard';
@@ -12,7 +12,6 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -33,8 +32,8 @@ const Home = () => {
             Experience the pinnacle of automotive excellence. Curated collection of the worlds most prestigious vehicles.
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/shop">
-              <Button size="lg" className="group">
+            <Link href="/dashboard">
+              <Button size="lg">
                 Explore Collection
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -60,8 +59,8 @@ const Home = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Link href="/shop">
-              <Button variant="outline" size="lg">
+            <Link href="/dashboard">
+              <Button variant="default" size="lg">
                 View All Vehicles
               </Button>
             </Link>
@@ -83,7 +82,8 @@ const Home = () => {
             {['Tesla', 'Porsche', 'Mercedes-Benz', 'Ferrari', 'Lamborghini', 'McLaren', 'Aston Martin', 'Bentley'].map((brand) => (
               <Link
                 key={brand}
-                href={`/shop?brand=${brand}`}
+                
+                href={`/dashboard?brand=${brand}`}
                 className="aspect-square bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:shadow-lg transition-all duration-300 group"
               >
                 <span className="text-lg font-semibold group-hover:scale-110 transition-transform">

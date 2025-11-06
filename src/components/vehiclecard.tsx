@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Vehicle } from "@/database/models/Vehicles";
-import { Button } from "../components/button";
+import { Button } from "./button/button";
 import { ShoppingCart } from "lucide-react";
 
 interface VehicleCardProps {
@@ -10,13 +10,13 @@ interface VehicleCardProps {
   onAddToCart?: (vehicle: Vehicle) => void; 
 }
 
-const VehicleCard = ({ vehicle, onAddToCart }: VehicleCardProps) => {
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (onAddToCart) {
-      onAddToCart(vehicle); 
-    }
-  };
+const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+  // const handleAddToCart = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+    // if (onAddToCart) {
+    //   onAddToCart(vehicle); 
+    // }
+  // };
 
   return (
     <Link href={`/vehicle/${vehicle.idVehicle}`} className="group">
@@ -44,16 +44,16 @@ const VehicleCard = ({ vehicle, onAddToCart }: VehicleCardProps) => {
               ${vehicle.price.toLocaleString()}
             </p>
             
-            {onAddToCart && (
+            {/* {onAddToCart && (
               <Button
                 size="icon"
-                variant="secondary"
+                variant="default"
                 onClick={handleAddToCart}
                 className="hover:scale-110 transition-transform"
               >
                 <ShoppingCart className="h-4 w-4" />
               </Button>
-            )}
+            )} */}
           </div>
         </div>
       </div>

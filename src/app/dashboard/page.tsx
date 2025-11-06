@@ -1,13 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { vehicles } from '@/constant/vehicles';
+import { vehicles } from "@/constant/vehicles";
 import Navbar from "@/components/navbar";
 import VehicleCard from "@/components/vehiclecard";
-import { Button } from "@/components/button";
+import { Button } from "@/components/button/button";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const Shop = () => {
+export default function DashboardPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  if (status === "unauthenticated") {
+    router.push("/login");
+  }
+
+  if (status === "loading") return <p className="text-center mt-20">Cargando...</p>;
 
   const brands = Array.from(new Set(vehicles.map((v) => v.brand)));
 
@@ -19,11 +29,22 @@ const Shop = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="pt-32 pb-12 text-center space-y-4 px-4">
-        <h1 className="text-5xl font-bold">Our Luxury Collection</h1>
+      <section className="pt-28 pb-8 text-center space-y-4 px-4">
+        <h1 className="text-4xl font-bold">
+          Welcome, {session?.user?.name || "User"} 👋
+        </h1>
         <p className="text-muted-foreground text-lg">
-          Choose your dream car from the worlds finest manufacturers.
+          Explore our luxury car collection below.
         </p>
+        <Button
+          variant="outline"
+          onClick={async () => {
+            await signOut({ redirect: false });
+            router.push("/login");
+          }}
+        >
+          Sign Out
+        </Button>
       </section>
 
       <section className="px-4 mb-16">
@@ -68,6 +89,4 @@ const Shop = () => {
       </section>
     </div>
   );
-};
-
-export default Shop;
+}
