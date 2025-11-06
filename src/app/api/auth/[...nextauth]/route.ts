@@ -1,30 +1,53 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import dbConnection from "@/lib/db";
+import User from "@/database/models/Users";
 
-const handler = NextAuth({
+const authOptions = {
   providers: [
-    CredentialsProvider({
-      name: "credentials",
+    // Login con email y password
+    Credentials({
+      name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        
-        const user = { id: "1", name: "David", email: "david@riwi.com" };
+        if (!credentials?.email || !credentials?.password) return null;
 
-        if (
-          credentials?.email === "david@riwi.com" &&
-          credentials?.password === "1234"
-        ) {
-          return user;
-        }
-        return null;
+        // Conexión a MongoDB
+        await dbConnection();
+
+        // Buscar usuario
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) return null;
+
+        // Validar contraseña (en texto plano por ahora, idealmente usar bcrypt)
+        if (user.password !== credentials.password) return null;
+
+        // Retornar objeto de usuario para NextAuth
+        return {
+          id: user._id.toString(),
+          email: user.email,
+          name: user.name || user.email,
+        };
       },
     }),
-  ],
-  pages: { signIn: "/login" },
-  secret: process.env.NEXTAUTH_SECRET,
-});
 
-export { handler as GET, handler as POST };
+    // Login con Google
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+
+  pages: {
+    signIn: "/login", // Página de login
+  },
+
+  secret: process.env.NEXTAUTH_SECRET,
+};
+
+const { handlers } = NextAuth(authOptions);
+export const { GET, POST } = handlers;

@@ -32,7 +32,7 @@ const Home = () => {
             Experience the pinnacle of automotive excellence. Curated collection of the worlds most prestigious vehicles.
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/dashboard">
+            <Link href="/shop">
               <Button size="lg">
                 Explore Collection
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -82,7 +82,6 @@ const Home = () => {
             {['Tesla', 'Porsche', 'Mercedes-Benz', 'Ferrari', 'Lamborghini', 'McLaren', 'Aston Martin', 'Bentley'].map((brand) => (
               <Link
                 key={brand}
-                
                 href={`/dashboard?brand=${brand}`}
                 className="aspect-square bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary hover:shadow-lg transition-all duration-300 group"
               >
