@@ -89,7 +89,7 @@ export default function RegisterPage() {
       </div>
 
       <div style="text-align: center; padding: 0 30px 30px 30px;">
-        <a href="https://localhost:3000/api/login" style="display: inline-block; background: #000000; color: white; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 16px; letter-spacing: 0.5px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <a href="https://luxeauto.vercel.app/login" style="display: inline-block; background: #000000; color: white; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 16px; letter-spacing: 0.5px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
           ACCEDER A MI CUENTA
         </a>
       </div>
@@ -104,7 +104,7 @@ export default function RegisterPage() {
       <!-- Footer -->
       <div style="background: #000000; color: white; text-align: center; padding: 30px 20px;">
         <p style="margin: 0 0 15px 0; font-size: 12px;">
-          <a href="https://localhost:3000/api/contact" style="color: #ffffff; text-decoration: none; margin: 0 10px;">Contáctanos</a> | 
+          <a href="https://luxeauto.vercel.app/contact" style="color: #ffffff; text-decoration: none; margin: 0 10px;">Contáctanos</a> | 
         </p>
         <p style="margin: 12px 0 0 0; font-size: 11px; color: #888;">
           © ${currentYear} Luxe Auto. Todos los derechos reservados.

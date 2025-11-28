@@ -6,7 +6,6 @@
     "email": "Correo electrónico",
     "emailPlaceholder": "Ingrese su correo",
     "password": "Contraseña",
-    "passwordPlaceholder": "••••••••",
     "signInButton": "Iniciar sesión",
     "divider": "o",
     "googleSignIn": "Iniciar sesión con Google",
@@ -18,6 +17,18 @@
       "invalidCredentials": "Correo o contraseña inválidos",
       "googleSignInError": "Error al iniciar sesión con Google"
     }
+  },
+  "register":{
+    "title" : "Crear Cuenta",
+    "subtitle" : "Comienza tu experiencia automotriz de lujo",    
+    "name": "Nombre completo",
+    "namePlaceholder": "Ingresa tu nombre",   
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingresa tu correo",
+    "password": "Contraseña",
+    "errors":{
+      
+    } 
   },
   "shop":{
     "title" : "Bienvenido",

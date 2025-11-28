@@ -4,9 +4,9 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/button/button';
 import Navbar from '@/components/navbar/navbar';
 import Image from 'next/image';
-import FeaturedVehiclesSection from '@/components/featuredVehicles/featuredVehicles';
 import BrandsSection from '@/components/brands/brands';
 import { useLanguage } from '@/contexts/LanguageContext';
+import FeaturedVehiclesSection from "@/components/featuredVehicles/featuredVehicles";
 
 const Home = () => {
 const { t } = useLanguage();
