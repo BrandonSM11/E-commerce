@@ -6,7 +6,7 @@ import User from "@/database/models/Users";
 
 const authOptions = {
   providers: [
-    // Login con email y password
+    
     Credentials({
       name: "Credentials",
       credentials: {
@@ -43,11 +43,12 @@ const authOptions = {
   ],
 
   pages: {
-    signIn: "/login", // Página de login
+    signIn: "/login", 
   },
 
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const { handlers } = NextAuth(authOptions);
+const { handlers, auth } = NextAuth(authOptions);
 export const { GET, POST } = handlers;
+export { auth };

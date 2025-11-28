@@ -2,26 +2,20 @@
 
 import Link from "next/link";
 import { Vehicle } from "@/database/models/Vehicles";
-import { Button } from "./button/button";
+import { Button } from "../button/button";
 import { ShoppingCart } from "lucide-react";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
-  onAddToCart?: (vehicle: Vehicle) => void; 
+  onAddToCart?: (vehicle: Vehicle) => void;
 }
 
-const VehicleCard = ({ vehicle }: VehicleCardProps) => {
-  // const handleAddToCart = (e: React.MouseEvent) => {
-  //   e.preventDefault();
-    // if (onAddToCart) {
-    //   onAddToCart(vehicle); 
-    // }
-  // };
-
+const VehicleCard = ({ vehicle, onAddToCart  }: VehicleCardProps) => {
   return (
-    <Link href={`/vehicle/${vehicle.idVehicle}`} className="group">
-      <div className="overflow-hidden rounded-lg bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg">
-        <div className="overflow-hidden">
+    <Link href={`/vehicle/${vehicle.idVehicle}`} className="group block">
+      <div className="flex flex-col h-full overflow-hidden rounded-lg bg-card border border-border hover:border-primary transition-all duration-300 hover:shadow-lg">
+        
+        <div className="overflow-hidden h-48 sm:h-56 md:h-60">
           <img
             src={vehicle.image}
             alt={vehicle.name}
@@ -29,12 +23,12 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
           />
         </div>
 
-        <div className="p-6 space-y-4">
+        <div className="flex flex-col justify-between flex-1 p-6 space-y-4">
           <div className="space-y-2">
             <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
               {vehicle.brand} • {vehicle.year}
             </p>
-            <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+            <h3 className="text-xl font-semibold group-hover:text-primary transition-colors line-clamp-2">
               {vehicle.model}
             </h3>
           </div>
@@ -43,17 +37,19 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
             <p className="text-2xl font-bold">
               ${vehicle.price.toLocaleString()}
             </p>
-            
-            {/* {onAddToCart && (
+
+            {onAddToCart && (
               <Button
                 size="icon"
                 variant="default"
-                onClick={handleAddToCart}
-                className="hover:scale-110 transition-transform"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onAddToCart(vehicle);
+                }}
               >
                 <ShoppingCart className="h-4 w-4" />
               </Button>
-            )} */}
+            )}
           </div>
         </div>
       </div>

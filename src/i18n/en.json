@@ -1,0 +1,65 @@
+{
+  
+  "login": {
+    "title": "Login",
+    "subtitle": "Sign in to continue",
+    "backButton": "Back to home",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "signInButton": "Sign in",
+    "divider": "or",
+    "googleSignIn": "Sign in with Google",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "errors": {
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid email or password",
+      "googleSignInError": "Error signing in with Google"
+    }
+  },
+  "shop":{
+    "title": "Welcome",
+    "subtitle":"Explore our collection of luxury cars below",
+    "allbrands" : "All brands",
+    "create": "Create vehicle",
+    "loading" : "Loading vehicle"
+  },
+
+  "home":{
+    "title": "Drive your",
+    "subtitle": "Dreams",
+    "slogan" : "Live the peak of automotive excellence. A curated collection of the world’s most prestigious vehicles.",
+    "buttonColeccion" : "Explore Collection",
+    "titleExclusive" : "Exclusive Selection",
+    "subtitleExclusive" :  "Featured Vehicles",
+    "noVehicles" : "No vehicles available at the moment",
+    "buttonVehicles" : "View all vehicles",
+    "brandsPremium": "Premium Brands",
+    "subtitleBrands": "Explore by Manufacturer"
+  },
+    "navbar":{
+    "home": "Home",
+    "shop" : "Shop",
+    "contact" : "Contact",
+    "greeting" : "Hi",
+    "cart" : "Your cart",
+    "noRegister" : "You are not registered yet",
+    "quantity": "Quantity",
+    "total": "Total",
+    "payment": "Proceed to Payment"
+    },
+    "contact":{
+      "title": "Contact us",
+      "description": "Discover the luxury you deserve. Contact us for inquiries about our exclusive vehicles or to schedule a test drive.",
+      "email": "Email",
+      "timeResponse" : "Response Time",
+      "time" :" Within 24 hours",
+      "name" : "Fullname",
+      "phone" : "Phone",
+      "message" : "Message",
+      "send" : "Send Message"
+    }
+}

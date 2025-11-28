@@ -2,6 +2,7 @@ import { Schema, model, models, Model } from "mongoose";
 
 export interface Vehicle {
   idVehicle: number;
+  slug?: string;
   name: string;
   brand: string;
   model: string;
@@ -18,6 +19,18 @@ export interface Vehicle {
   };
 }
 
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const VehicleSchema = new Schema<Vehicle>(
   {
     idVehicle: {
@@ -28,6 +41,10 @@ const VehicleSchema = new Schema<Vehicle>(
     name: {
       type: String,
       required: [true, "El nombre del vehículo es obligatorio"],
+    },
+    slug: {
+      type: String,
+      unique: true,
     },
     brand: {
       type: String,
@@ -63,6 +80,25 @@ const VehicleSchema = new Schema<Vehicle>(
   },
   { versionKey: false, timestamps: true }
 );
+
+// Middleware: genera slug antes de guardar
+VehicleSchema.pre('save', async function(next) {
+
+  if (!this.slug || this.isModified('name')) {
+    const slugBase = generateSlug(this.name);
+    let slug = slugBase;
+    let counter = 1;
+    
+    const VehicleModel = this.constructor as Model<Vehicle>;
+    while (await VehicleModel.findOne({ slug, _id: { $ne: this._id } })) {
+      slug = `${slugBase}-${counter}`;
+      counter++;
+    }
+    
+    this.slug = slug;
+  }
+  next();
+});
 
 const VehicleModel: Model<Vehicle> =
   models.Vehicle || model<Vehicle>("Vehicle", VehicleSchema);

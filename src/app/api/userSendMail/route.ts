@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     });
 
     await transporter.sendMail({
-      from: '"App Metrofem" <no-reply@appmetrofem.com>',
+      from: '"LuxeAuto" <no-reply@luxeauto.com>',
       to: email,
       subject: asunto,
       html: mensaje,

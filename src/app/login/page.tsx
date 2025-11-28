@@ -5,69 +5,50 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2, Chrome } from "lucide-react";
 import { Button } from "@/components/button/button";
+import { LanguageSwitcher } from "@/components/language/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  
+  const { t } = useLanguage();
   const { status } = useSession();
   const router = useRouter();
 
-  // Redirigir si ya está autenticado
   useEffect(() => {
-    if (status === "authenticated") router.push("/dashboard");
+    if (status === "authenticated") router.push("/shop");
   }, [status, router]);
 
-  // Manejo de login / registro
-  const handleAuth = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      if (isLogin) {
-        // Login con NextAuth
-        const result = await signIn("credentials", {
-          email,
-          password,
-          redirect: false,
-        });
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-        if (result?.error) throw new Error(result.error);
-        router.push("/shop");
-      } else {
-        // Registro usando API
-        const res = await fetch("/api/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || "Registration failed");
-        }
-
-        // Después del registro, cambiar a login
-        setIsLogin(true);
-      }
-    } catch  {
-      setError( "Authentication failed");
+      if (result?.error) throw new Error(result.error);
+      router.push("/shop");
+    } catch {
+      setError(t("login.errors.invalidCredentials"));
     } finally {
       setLoading(false);
     }
   };
 
-  // Login con Google
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
       await signIn("google", { callbackUrl: "/shop" });
     } catch {
-      setError("Failed to sign in with Google");
+      setError(t("login.errors.googleSignInError"));
     } finally {
       setLoading(false);
     }
@@ -77,31 +58,22 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4 text-black">
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-2 text-center">
-          <Button variant="default" onClick={() => router.push("/")}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Button>
 
-          <h1 className="text-4xl font-bold tracking-tight">
-            {isLogin ? "Welcome Back" : "Create Account"}
-          </h1>
-          <p className="text-gray-500">
-            {isLogin
-              ? "Sign in to your account to continue"
-              : "Start your luxury automotive journey"}
-          </p>
+
+          <h1 className="text-4xl font-bold tracking-tight">{t("login.title")}</h1>
+          <p className="text-gray-500">{t("login.subtitle")}</p>
         </div>
 
-        <form onSubmit={handleAuth} className="space-y-6">
+        <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-4">
-            <div className="space-y-2">
+            <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+                {t("login.email")}
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder={t("login.emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -110,14 +82,14 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                {t("login.password")}
               </label>
               <input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("login.passwordPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -130,33 +102,30 @@ export default function LoginPage() {
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
           <Button type="submit">
-            {loading ? <Loader2 className="animate-spin h-4 w-4" /> : isLogin ? "Sign In" : "Sign Up"}
+            {loading ? <Loader2 className="animate-spin h-4 w-4" /> : t("login.signInButton")}
           </Button>
 
-          {/* Separador para Google */}
           <div className="relative mt-4">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-gray-300" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-gray-500">or</span>
+              <span className="bg-background px-2 text-gray-500">{t("login.divider")}</span>
             </div>
           </div>
 
           <Button type="button" variant="outline" onClick={handleGoogleSignIn}>
             <Chrome className="h-4 w-4" />
-            Sign in with Google
+            {t("login.googleSignIn")}
           </Button>
 
           <div className="text-center">
             <button
               type="button"
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => router.push("/register")}
               className="text-sm text-gray-500 hover:text-gray-600 transition-colors"
             >
-              {isLogin
-                ? "Don't have an account? Sign up"
-                : "Already have an account? Sign in"}
+              {t("login.noAccount")} {t("login.register")}
             </button>
           </div>
         </form>

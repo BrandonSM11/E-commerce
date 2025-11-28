@@ -1,0 +1,64 @@
+{
+  "login": {
+    "title": "Iniciar Sesión",
+    "subtitle": "Inicia sesión para continuar",
+    "backButton": "Volver al inicio",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingrese su correo",
+    "password": "Contraseña",
+    "passwordPlaceholder": "••••••••",
+    "signInButton": "Iniciar sesión",
+    "divider": "o",
+    "googleSignIn": "Iniciar sesión con Google",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate",
+    "errors": {
+      "emailRequired": "El correo es requerido",
+      "passwordRequired": "La contraseña es requerida",
+      "invalidCredentials": "Correo o contraseña inválidos",
+      "googleSignInError": "Error al iniciar sesión con Google"
+    }
+  },
+  "shop":{
+    "title" : "Bienvenido",
+    "subtitle" : "Explora nuestra colección de autos de lujo a continuación",
+    "allbrands" : "Todas las marcas",
+    "create": "Crear vehiculo",
+    "loading" : "Cargando vehiculo"
+  },
+  "home":{
+    "title" : "Conduce tus",
+    "subtitle" : "sueños",
+    "slogan" : " Vive la cima de la excelencia automotriz. Una colección seleccionada de los vehículos más prestigiosos del mundo.",
+    "buttonColeccion" : "Explorar Colección",
+    "titleExclusive" : "Selección Exclusiva",
+    "subtitleExclusive" :  "Vehículos Destacados",
+    "noVehicles" : "No hay vehículos disponibles en este momento",
+    "buttonVehicles" : "Ver todos los vehiculos",
+    "brandsPremium": "Marcas Premium",
+    "subtitleBrands": "Explorar por Fabricante"
+  },
+  "navbar":{
+    "home": "Inicio",
+    "shop" : "Tienda",
+    "contact" : "Contacto",
+    "greeting" : "Hola",
+    "cart" : "Tu carrito",
+    "noRegister" : "No estas registrado aun",
+    "quantity": "Cantidad",
+    "total": "Total",
+    "payment": "Proceder al pago"
+  },
+  "contact": {
+  "title": "Contáctanos",
+  "description": "Descubre el lujo que mereces. Contáctanos para consultas sobre nuestros vehículos exclusivos o para agendar una prueba de manejo.",
+  "email": "Correo electrónico",
+  "timeResponse": "Tiempo de respuesta",
+  "time": "Dentro de 24 horas",
+  "name": "Nombre completo",
+  "phone": "Teléfono",
+  "message": "Mensaje",
+  "send": "Enviar mensaje"
+}
+
+}
