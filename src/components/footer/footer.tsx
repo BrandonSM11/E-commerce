@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div>
-            <h3 className="text-2xl font-bold mb-6">Luxury Motors</h3>
+            <h3 className="text-2xl font-bold mb-6">LuxuAuto</h3>
             <p className="text-gray-300 leading-relaxed mb-4">
               Somos líderes en la comercialización de vehículos de lujo, ofreciendo una experiencia incomparable en la compra y posesión de automóviles premium. Con más de 15 años de trayectoria, nos comprometemos a proporcionar los mejores vehículos del mercado.
             </p>
@@ -20,12 +20,9 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-6">Enlaces Rápidos</h4>
             <ul className="space-y-3 text-gray-300">
-              <li><a href="#" className="hover:text-white transition">Nuestros Vehículos</a></li>
-              <li><a href="#" className="hover:text-white transition">Modelos Exclusivos</a></li>
-              <li><a href="#" className="hover:text-white transition">Servicios Premium</a></li>
-              <li><a href="#" className="hover:text-white transition">Financiamiento</a></li>
-              <li><a href="#" className="hover:text-white transition">Garantía Extendida</a></li>
-              <li><a href="#" className="hover:text-white transition">Blog de Lujo</a></li>
+              <li><a href="https://luxeauto.vercel.app/shop" className="hover:text-white transition">Nuestros Vehículos</a></li>
+              <li><a href="#" className="hover:text-white transition">Vehiculos Destacados </a></li>
+              
             </ul>
           </div>
 
@@ -44,7 +41,7 @@ export default function Footer() {
                 <Mail size={20}  />
                 <div>
                   <p className="text-sm text-gray-400">Email</p>
-                  <p className="hover:text-white transition">info@luxurymotors.co</p>
+                  <p className="hover:text-white transition">info@luxuauto.co</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -58,13 +55,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-gray-800 py-8"></div>
 
-        {/* Bottom Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           
-          {/* Legal Links */}
           <div>
             <h5 className="font-semibold mb-4">Información Legal</h5>
             <ul className="space-y-2 text-gray-400 text-sm">
@@ -75,7 +69,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Extra Info */}
           <div>
             <h5 className="font-semibold mb-4">Experiencia Premium</h5>
             <p className="text-gray-400 text-sm leading-relaxed">
@@ -83,7 +76,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Social Media */}
           <div>
             <h5 className="font-semibold mb-4">Síguenos</h5>
             <div className="flex gap-4">
@@ -103,10 +95,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>&copy; 2024 Luxury Motors. Todos los derechos reservados.</p>
+            <p>&copy; 2025 LuxuAuto. Todos los derechos reservados.</p>
             <p>Diseñado con excelencia para experiencias premium</p>
           </div>
         </div>

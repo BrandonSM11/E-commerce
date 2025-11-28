@@ -5,7 +5,6 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2, Chrome } from "lucide-react";
 import { Button } from "@/components/button/button";
-import { LanguageSwitcher } from "@/components/language/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function LoginPage() {
