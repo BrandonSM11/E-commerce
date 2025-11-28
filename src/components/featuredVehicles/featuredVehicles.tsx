@@ -20,8 +20,8 @@ export default function FeaturedVehiclesSection() {
     const fetchVehicles = async () => {
       try {
         setLoading(true);
-        const data = await getVehicles();
-        setVehicles(data.slice(0, 3)); 
+        const response = await getVehicles({ perPage: 1000 });
+        setVehicles(response.data.slice(0, 3)); 
         setError(null);
       } catch (err) {
         console.error('Error fetching vehicles:', err);
@@ -33,14 +33,15 @@ export default function FeaturedVehiclesSection() {
 
     fetchVehicles();
   }, []);
-const handleAddToCart = async (vehicle: Vehicle) => {
-  const result = await addToCart(vehicle.idVehicle.toString(), 1);
-  if (result.status === 'success') {
-    alert(`${vehicle.name} agregado al carrito`);
-  } else {
-    alert('Error: ' + result.message);
-  }
-};
+
+  const handleAddToCart = async (vehicle: Vehicle) => {
+    const result = await addToCart(vehicle.idVehicle.toString(), 1);
+    if (result.status === 'success') {
+      alert(`${vehicle.name} agregado al carrito`);
+    } else {
+      alert('Error: ' + result.message);
+    }
+  };
 
   return (
     <section className="py-24 px-4">

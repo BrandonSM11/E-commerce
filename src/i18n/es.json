@@ -6,6 +6,7 @@
     "email": "Correo electrónico",
     "emailPlaceholder": "Ingrese su correo",
     "password": "Contraseña",
+    "passwordPlaceholder": "••••••••",
     "signInButton": "Iniciar sesión",
     "divider": "o",
     "googleSignIn": "Iniciar sesión con Google",
@@ -18,58 +19,59 @@
       "googleSignInError": "Error al iniciar sesión con Google"
     }
   },
-  "register":{
-    "title" : "Crear Cuenta",
-    "subtitle" : "Comienza tu experiencia automotriz de lujo",    
+  "register": {
+    "title": "Crear Cuenta",
+    "subtitle": "Comienza tu experiencia automotriz de lujo",
     "name": "Nombre completo",
-    "namePlaceholder": "Ingresa tu nombre",   
+    "namePlaceholder": "Ingresa tu nombre",
     "email": "Correo electrónico",
     "emailPlaceholder": "Ingresa tu correo",
     "password": "Contraseña",
-    "errors":{
-      
-    } 
+    "passwordPlaceholder": "********",
+    "button": "Registrate",
+    "accountExists": "¿Ya tienes una cuenta?",
+    "signIn": "Inicia sesión",
+    "errors": {}
   },
-  "shop":{
-    "title" : "Bienvenido",
-    "subtitle" : "Explora nuestra colección de autos de lujo a continuación",
-    "allbrands" : "Todas las marcas",
+  "shop": {
+    "title": "Bienvenido",
+    "subtitle": "Explora nuestra colección de autos de lujo a continuación",
+    "allbrands": "Todas las marcas",
     "create": "Crear vehiculo",
-    "loading" : "Cargando vehiculo"
+    "loading": "Cargando vehiculo"
   },
-  "home":{
-    "title" : "Conduce tus",
-    "subtitle" : "sueños",
-    "slogan" : " Vive la cima de la excelencia automotriz. Una colección seleccionada de los vehículos más prestigiosos del mundo.",
-    "buttonColeccion" : "Explorar Colección",
-    "titleExclusive" : "Selección Exclusiva",
-    "subtitleExclusive" :  "Vehículos Destacados",
-    "noVehicles" : "No hay vehículos disponibles en este momento",
-    "buttonVehicles" : "Ver todos los vehiculos",
+  "home": {
+    "title": "Conduce tus",
+    "subtitle": "sueños",
+    "slogan": " Vive la cima de la excelencia automotriz. Una colección seleccionada de los vehículos más prestigiosos del mundo.",
+    "buttonColeccion": "Explorar Colección",
+    "titleExclusive": "Selección Exclusiva",
+    "subtitleExclusive": "Vehículos Destacados",
+    "noVehicles": "No hay vehículos disponibles en este momento",
+    "buttonVehicles": "Ver todos los vehiculos",
     "brandsPremium": "Marcas Premium",
     "subtitleBrands": "Explorar por Fabricante"
   },
-  "navbar":{
+  "navbar": {
     "home": "Inicio",
-    "shop" : "Tienda",
-    "contact" : "Contacto",
-    "greeting" : "Hola",
-    "cart" : "Tu carrito",
-    "noRegister" : "No estas registrado aun",
+    "shop": "Tienda",
+    "contact": "Contacto",
+    "greeting": "Hola",
+    "cart": "Tu carrito",
+    "noRegister": "No estas registrado aun",
     "quantity": "Cantidad",
     "total": "Total",
     "payment": "Proceder al pago"
   },
   "contact": {
-  "title": "Contáctanos",
-  "description": "Descubre el lujo que mereces. Contáctanos para consultas sobre nuestros vehículos exclusivos o para agendar una prueba de manejo.",
-  "email": "Correo electrónico",
-  "timeResponse": "Tiempo de respuesta",
-  "time": "Dentro de 24 horas",
-  "name": "Nombre completo",
-  "phone": "Teléfono",
-  "message": "Mensaje",
-  "send": "Enviar mensaje"
-}
-
+    "title": "Contáctanos",
+    "description": "Descubre el lujo que mereces. Contáctanos para consultas sobre nuestros vehículos exclusivos o para agendar una prueba de manejo.",
+    "email": "Correo electrónico",
+    "timeResponse": "Tiempo de respuesta",
+    "time": "Dentro de 24 horas",
+    "name": "Nombre completo",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "send": "Enviar mensaje"
+  }
 }

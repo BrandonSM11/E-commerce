@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import * as yup from "yup";
 import { Button } from "../button/button";
 import { Vehicle } from "@/database/models/Vehicles";
 import { createVehicle, uploadImage } from "@/service/vehicles";
@@ -11,13 +12,28 @@ interface CreateVehicleModalProps {
   onSubmit: (data: Vehicle) => Promise<void>;
 }
 
+// Schema de validación con Yup
+const vehicleSchema = yup.object().shape({
+  name: yup.string().required("El nombre es requerido").min(3, "Mínimo 3 caracteres"),
+  brand: yup.string().required("La marca es requerida"),
+  model: yup.string().required("El modelo es requerido"),
+  year: yup.number().required("El año es requerido").min(1900, "Año inválido").max(new Date().getFullYear() + 1, "Año no puede ser futuro"),
+  price: yup.number().required("El precio es requerido").positive("El precio debe ser positivo"),
+  image: yup.mixed().required("La imagen es requerida"),
+  description: yup.string().required("La descripción es requerida").min(10, "Mínimo 10 caracteres"),
+  engine: yup.string().required("El motor es requerido"),
+  horsepower: yup.string().required("Los caballos de fuerza son requeridos"),
+  transmission: yup.string().required("La transmisión es requerida"),
+  topSpeed: yup.string().required("La velocidad máxima es requerida"),
+  acceleration: yup.string().required("La aceleración es requerida"),
+});
+
 export default function CreateVehicleModal({
   open,
   onClose,
   onSubmit,
 }: CreateVehicleModalProps) {
   const [form, setForm] = useState({
-    idVehicle: "",
     name: "",
     brand: "",
     model: "",
@@ -33,6 +49,7 @@ export default function CreateVehicleModal({
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -41,6 +58,10 @@ export default function CreateVehicleModal({
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,12 +74,20 @@ export default function CreateVehicleModal({
     } else {
       setImagePreview(null);
     }
+
+    if (errors.image) {
+      setErrors({ ...errors, image: "" });
+    }
   };
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+      // Validar con Yup
+      await vehicleSchema.validate(form, { abortEarly: false });
+      setErrors({});
+
       let imageUrl = "";
 
       if (form.image) {
@@ -84,7 +113,6 @@ export default function CreateVehicleModal({
 
       onSubmit(finalForm as Vehicle);
       setForm({
-        idVehicle: "",
         name: "",
         brand: "",
         model: "",
@@ -101,9 +129,13 @@ export default function CreateVehicleModal({
       setImagePreview(null);
       onClose();
     } catch (error) {
-      console.error("Error:", error);
+      if (error instanceof Error) {
+        console.error("Errores de validación:", error.message);
+        alert(error.message);
+      }
     }
   };
+
   if (!open) return null;
 
   return (
@@ -113,38 +145,62 @@ export default function CreateVehicleModal({
 
         <form onSubmit={submitForm} className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <input
-              name="name"
-              placeholder="Nombre"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="brand"
-              placeholder="Marca"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="model"
-              placeholder="Modelo"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="year"
-              placeholder="Año"
-              type="number"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="price"
-              placeholder="Precio"
-              type="number"
-              className="input"
-              onChange={handleChange}
-            />
+            <div>
+              <input
+                name="name"
+                placeholder="Nombre"
+                className="input"
+                onChange={handleChange}
+                value={form.name}
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            </div>
+
+            <div>
+              <input
+                name="brand"
+                placeholder="Marca"
+                className="input"
+                onChange={handleChange}
+                value={form.brand}
+              />
+              {errors.brand && <p className="text-red-500 text-sm mt-1">{errors.brand}</p>}
+            </div>
+
+            <div>
+              <input
+                name="model"
+                placeholder="Modelo"
+                className="input"
+                onChange={handleChange}
+                value={form.model}
+              />
+              {errors.model && <p className="text-red-500 text-sm mt-1">{errors.model}</p>}
+            </div>
+
+            <div>
+              <input
+                name="year"
+                placeholder="Año"
+                type="number"
+                className="input"
+                onChange={handleChange}
+                value={form.year}
+              />
+              {errors.year && <p className="text-red-500 text-sm mt-1">{errors.year}</p>}
+            </div>
+
+            <div>
+              <input
+                name="price"
+                placeholder="Precio"
+                type="number"
+                className="input"
+                onChange={handleChange}
+                value={form.price}
+              />
+              {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -155,6 +211,7 @@ export default function CreateVehicleModal({
               className="input file:bg-gray-200 file:text-gray-700 file:cursor-pointer file:rounded-md file:mr-4"
               onChange={handleFileChange}
             />
+            {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
 
             {imagePreview && (
               <div className="mt-3 rounded-lg overflow-hidden border border-gray-200">
@@ -167,45 +224,73 @@ export default function CreateVehicleModal({
             )}
           </div>
 
-          <textarea
-            name="description"
-            placeholder="Descripción"
-            className="input h-20"
-            onChange={handleChange}
-          />
+          <div>
+            <textarea
+              name="description"
+              placeholder="Descripción"
+              className="input h-20"
+              onChange={handleChange}
+              value={form.description}
+            />
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+          </div>
 
           <h3 className="font-semibold">Especificaciones</h3>
           <div className="grid grid-cols-2 gap-3">
-            <input
-              name="engine"
-              placeholder="Motor"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="horsepower"
-              placeholder="Caballos de fuerza"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="transmission"
-              placeholder="Transmisión"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="topSpeed"
-              placeholder="Velocidad máxima"
-              className="input"
-              onChange={handleChange}
-            />
-            <input
-              name="acceleration"
-              placeholder="0-100 km/h"
-              className="input"
-              onChange={handleChange}
-            />
+            <div>
+              <input
+                name="engine"
+                placeholder="Motor"
+                className="input"
+                onChange={handleChange}
+                value={form.engine}
+              />
+              {errors.engine && <p className="text-red-500 text-sm mt-1">{errors.engine}</p>}
+            </div>
+
+            <div>
+              <input
+                name="horsepower"
+                placeholder="Caballos de fuerza"
+                className="input"
+                onChange={handleChange}
+                value={form.horsepower}
+              />
+              {errors.horsepower && <p className="text-red-500 text-sm mt-1">{errors.horsepower}</p>}
+            </div>
+
+            <div>
+              <input
+                name="transmission"
+                placeholder="Transmisión"
+                className="input"
+                onChange={handleChange}
+                value={form.transmission}
+              />
+              {errors.transmission && <p className="text-red-500 text-sm mt-1">{errors.transmission}</p>}
+            </div>
+
+            <div>
+              <input
+                name="topSpeed"
+                placeholder="Velocidad máxima"
+                className="input"
+                onChange={handleChange}
+                value={form.topSpeed}
+              />
+              {errors.topSpeed && <p className="text-red-500 text-sm mt-1">{errors.topSpeed}</p>}
+            </div>
+
+            <div className="col-span-2">
+              <input
+                name="acceleration"
+                placeholder="0-100 km/h"
+                className="input"
+                onChange={handleChange}
+                value={form.acceleration}
+              />
+              {errors.acceleration && <p className="text-red-500 text-sm mt-1">{errors.acceleration}</p>}
+            </div>
           </div>
 
           <div className="flex justify-end gap-3 mt-4">
@@ -222,15 +307,3 @@ export default function CreateVehicleModal({
     </div>
   );
 }
-
-// const [price, setPrice] = useState<string | null>(null);
-// <input
-//   name="price"
-//   placeholder="Precio"
-//   type="number"
-//   className="input"
-//   value = {price}
-//   onChange={() =>{
-// const value = Number(e.target.value)
-// setPrice(value)}}
-// />

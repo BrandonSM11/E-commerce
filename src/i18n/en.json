@@ -20,6 +20,19 @@
       "googleSignInError": "Error signing in with Google"
     }
   },
+"register": {
+  "title": "Create Account",
+  "subtitle": "Start your luxury automotive experience",
+  "name": "Full Name",
+  "namePlaceholder": "Enter your name",
+  "email": "Email",
+  "emailPlaceholder": "brandon@example.com",
+  "password": "Password",
+  "passwordPlaceholder": "********",
+  "button": "Register",
+  "accountExists": "Already have an account?",
+  "signIn": "Sign In"
+},
   "shop":{
     "title": "Welcome",
     "subtitle":"Explore our collection of luxury cars below",

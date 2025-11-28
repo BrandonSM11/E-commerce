@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div>
-            <h3 className="text-2xl font-bold mb-6">LuxuAuto</h3>
+            <h3 className="text-2xl font-bold mb-6">LuxeAuto</h3>
             <p className="text-gray-300 leading-relaxed mb-4">
               Somos líderes en la comercialización de vehículos de lujo, ofreciendo una experiencia incomparable en la compra y posesión de automóviles premium. Con más de 15 años de trayectoria, nos comprometemos a proporcionar los mejores vehículos del mercado.
             </p>
@@ -41,7 +41,7 @@ export default function Footer() {
                 <Mail size={20}  />
                 <div>
                   <p className="text-sm text-gray-400">Email</p>
-                  <p className="hover:text-white transition">info@luxuauto.co</p>
+                  <p className="hover:text-white transition">info@LuxeAuto.co</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -72,7 +72,7 @@ export default function Footer() {
           <div>
             <h5 className="font-semibold mb-4">Experiencia Premium</h5>
             <p className="text-gray-400 text-sm leading-relaxed">
-              En Luxury Motors sabemos que adquirir un vehículo premium es una decisión importante. Nuestro equipo de expertos está disponible para brindarte asesoría personalizada en cada paso del proceso.
+              En LuxeAuto sabemos que adquirir un vehículo premium es una decisión importante. Nuestro equipo de expertos está disponible para brindarte asesoría personalizada en cada paso del proceso.
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
-            <p>&copy; 2025 LuxuAuto. Todos los derechos reservados.</p>
+            <p>&copy; 2025 LuxeAuto. Todos los derechos reservados.</p>
             <p>Diseñado con excelencia para experiencias premium</p>
           </div>
         </div>

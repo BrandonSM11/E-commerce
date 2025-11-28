@@ -1,13 +1,41 @@
 import axios from "axios";
-import { Vehicle } from "@/database/models/Vehicles"; 
+import { Vehicle } from "@/database/models/Vehicles";
 
 const API_URL = "/api/vehicles";
 
+interface PaginationParams {
+  page?: number;
+  perPage?: number;
+  search?: string;
+  brand?: string;
+}
 
-export const getVehicles = async (): Promise<Vehicle[]> => {
+interface GetVehiclesResponse {
+  status: string;
+  data: Vehicle[];
+  pagination: {
+    page: number;
+    perPage: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export const getVehicles = async (
+  params?: PaginationParams
+): Promise<GetVehiclesResponse> => {
   try {
-    const { data } = await axios.get(API_URL);
-    return data.data;
+    const queryParams = new URLSearchParams();
+    
+    if (params?.page) queryParams.append("page", params.page.toString());
+    if (params?.perPage) queryParams.append("perPage", params.perPage.toString());
+    if (params?.search) queryParams.append("search", params.search);
+    if (params?.brand) queryParams.append("brand", params.brand);
+
+    const { data } = await axios.get(
+      `${API_URL}?${queryParams.toString()}`
+    );
+    return data;
   } catch (error) {
     console.error("Error al obtener vehículos:", error);
     throw new Error("No se pudieron obtener los vehículos");

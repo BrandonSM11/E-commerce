@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/button/button";
 import { sendEmail } from "@/service/userEmail";
 import { notification } from "@/components/notify/notify";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -20,6 +21,7 @@ export default function RegisterPage() {
 
   const { status } = useSession();
   const router = useRouter();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (status === "authenticated") router.push("/dashboard");
@@ -136,20 +138,20 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-background flex items-center justify-center px-4 text-black">
       <div className="w-full max-w-md space-y-8">
         <div className="space-y-2 text-center">
-          <h1 className="text-4xl font-bold tracking-tight">Crear cuenta</h1>
-          <p className="text-gray-500">Comienza tu experiencia automotriz de lujo</p>
+          <h1 className="text-4xl font-bold tracking-tight">{t("register.title")}</h1>
+          <p className="text-gray-500">{t("register.subtitle")}</p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-6">
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Nombre completo
+               {t("register.name")}
               </label>
               <input
                 id="name"
                 type="text"
-                placeholder="Brandon Arredondo"
+                placeholder={t("register.namePlaceholder")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -160,12 +162,12 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Correo electrónico
+                {t("register.email")}
               </label>
               <input
                 id="email"
                 type="email"
-                placeholder="brandon@ejemplo.com"
+                placeholder={t("register.emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -176,12 +178,12 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Contraseña
+                {t("register.password")}
               </label>
               <input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder={t("register.passwordPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -199,7 +201,7 @@ export default function RegisterPage() {
           )}
 
           <Button type="submit">
-            {loading ? <Loader2 className="animate-spin h-4 w-4" /> : "Registrarse"}
+            {loading ? <Loader2 className="animate-spin h-4 w-4" /> : t("register.button")} 
           </Button>
 
           <div className="text-center">
@@ -208,7 +210,7 @@ export default function RegisterPage() {
               onClick={() => router.push("/login")}
               className="text-sm text-gray-500 hover:text-gray-600 transition-colors"
             >
-              ¿Ya tienes una cuenta? Inicia sesión
+             {t("register.accountExists")} {t("register.signIn")}
             </button>
           </div>
         </form>
